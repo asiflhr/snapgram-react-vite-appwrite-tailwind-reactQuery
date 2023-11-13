@@ -8,7 +8,7 @@ import {
   FormControl,
   FormField,
   FormItem,
-  Formlabel,
+  FormLabel,
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
@@ -94,7 +94,80 @@ const SignupForm = () => {
           className='flex flex-col gap-5 w-full mt-4'
         >
           <FormField
-          control={}
+            control={form.control}
+            name='name'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className='shad-form_label'>Name</FormLabel>
+                <FormControl>
+                  <Input type='text' className='shad-input' {...field} />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name='username'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className='shad-form_label'>Username</FormLabel>
+                <FormControl>
+                  <Input type='text' className='shad-input' {...field} />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name='email'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className='shad-form_label'>Email</FormLabel>
+                <FormControl>
+                  <Input type='text' className='shad-input' {...field} />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name='password'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className='shad-form_label'>Password</FormLabel>
+                <FormControl>
+                  <Input type='password' className='shad-input' {...field} />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+
+          <Button type='submit' className='shad-button_primary'>
+            {
+              // isCreatingAccount
+              // || isSigningInUser ||
+              isUserLoading ? (
+                <div className='flex-center gap-2'>
+                  <Loader /> Loading...
+                </div>
+              ) : (
+                'Sign Up'
+              )
+            }
+          </Button>
+
+          <p className='text-small-regular text-light-2 text-center mt-2'>
+            Already have an account?{' '}
+            <Link
+              to='/sign-in'
+              className='text-primary-500 text-small-semibold ml-1'
+            >
+              Sign In
+            </Link>
+          </p>
         </form>
       </div>
     </Form>
