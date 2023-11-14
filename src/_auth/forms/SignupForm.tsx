@@ -16,10 +16,12 @@ import { Button } from '@/components/ui/button'
 import Loader from '@/components/shared/Loader'
 import { useToast } from '@/components/ui/use-toast'
 
-// import { useCreateUserAccount, useSignInAccount } from '@/react-query/queries'
+import {
+  useCreateUserAccount,
+  useSignInAccount,
+} from '@/lib/react-query/queries'
 import { SignupValidation } from '@/lib/validation'
 import { useUserContext } from '@/context/AuthContext'
-import { createUserAccount } from '@/lib/appwrite/api'
 
 const SignupForm = () => {
   const { toast } = useToast()
@@ -37,45 +39,48 @@ const SignupForm = () => {
   })
 
   // Queries
-  // const {mutateAsync: createUserAccount, isLoading: isCreatingAccount} = useCreateUserAccount()
-  // const {mutateAsync: signInAccount, isLoading: isSigningIn} = userSignInAccount()
+  const { mutateAsync: createUserAccount, isLoading: isCreatingAccount } =
+    useCreateUserAccount()
+  const { mutateAsync: signInAccount, isLoading: isSigningInUser } =
+    useSignInAccount()
 
   // Handler
   const handleSignup = async (user: z.infer<typeof SignupValidation>) => {
     try {
-      // const newUser = await useCreateUserAccount(user)
       const newUser = await createUserAccount(user)
-      console.log('newuser: ', newUser)
 
-      // if (!newUser) {
-      //   toast({ title: 'Sign up failed. Please try again.' })
-      //   return
-      // }
+      if (!newUser) {
+        toast({ title: 'Sign up failed. Please try again.' })
 
-      // const session = await signInAccount({
-      //   email: user.email,
-      //   password: user.password,
-      // })
+        return
+      }
 
-      // if (!session) {
-      //   toast({ title: 'Something went wrong. Please login your new account' })
-      //   navigate('/sign-in')
-      //   return
-      // }
+      const session = await signInAccount({
+        email: user.email,
+        password: user.password,
+      })
 
-      // const isLoggedIn = await checkAuthUser()
+      if (!session) {
+        toast({ title: 'Something went wrong. Please login your new account' })
 
-      // if (isLoggedIn) {
-      //   form.reset()
+        navigate('/sign-in')
 
-      //   navigate('/')
-      // } else {
-      //   // toast({title: 'Login failed. Please try again.'})
+        return
+      }
 
-      //   return
-      // }
+      const isLoggedIn = await checkAuthUser()
+
+      if (isLoggedIn) {
+        form.reset()
+
+        navigate('/')
+      } else {
+        toast({ title: 'Login failed. Please try again.' })
+
+        return
+      }
     } catch (error) {
-      console.error(error)
+      console.log({ error })
     }
   }
 
@@ -87,7 +92,6 @@ const SignupForm = () => {
         <h2 className='h3-bold md:h2-bold pt-5 sm:pt-12'>
           Create a new account
         </h2>
-
         <p className='text-light-3 small-medium md:base-regular mt-2'>
           To use snapgram, Please enter your details
         </p>
@@ -105,6 +109,7 @@ const SignupForm = () => {
                 <FormControl>
                   <Input type='text' className='shad-input' {...field} />
                 </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />
@@ -118,6 +123,7 @@ const SignupForm = () => {
                 <FormControl>
                   <Input type='text' className='shad-input' {...field} />
                 </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />
@@ -131,6 +137,7 @@ const SignupForm = () => {
                 <FormControl>
                   <Input type='text' className='shad-input' {...field} />
                 </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />
@@ -144,31 +151,28 @@ const SignupForm = () => {
                 <FormControl>
                   <Input type='password' className='shad-input' {...field} />
                 </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />
 
           <Button type='submit' className='shad-button_primary'>
-            {
-              // isCreatingAccount
-              // || isSigningInUser ||
-              isUserLoading ? (
-                <div className='flex-center gap-2'>
-                  <Loader /> Loading...
-                </div>
-              ) : (
-                'Sign Up'
-              )
-            }
+            {isCreatingAccount || isSigningInUser || isUserLoading ? (
+              <div className='flex-center gap-2'>
+                <Loader /> Loading...
+              </div>
+            ) : (
+              'Sign Up'
+            )}
           </Button>
 
           <p className='text-small-regular text-light-2 text-center mt-2'>
-            Already have an account?{' '}
+            Already have an account?
             <Link
               to='/sign-in'
               className='text-primary-500 text-small-semibold ml-1'
             >
-              Sign In
+              Log in
             </Link>
           </p>
         </form>
