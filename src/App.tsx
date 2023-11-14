@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
-
+import { Toaster } from '@/components/ui/toaster'
 import {
   Home,
   // Explore,
@@ -43,7 +43,7 @@ const App = () => {
         </Route>
       </Routes>
 
-      {/* <Toaster /> */}
+      <Toaster />
     </main>
   )
 }

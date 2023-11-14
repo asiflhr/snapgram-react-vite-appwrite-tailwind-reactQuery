@@ -14,14 +14,15 @@ import {
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import Loader from '@/components/shared/Loader'
-// import { useToast} from '@/components/ui/use-toast'
+import { useToast } from '@/components/ui/use-toast'
 
-// import {useCreateUserAccount, useSignInAccount} from '@/react-query/queries'
+// import { useCreateUserAccount, useSignInAccount } from '@/react-query/queries'
 import { SignupValidation } from '@/lib/validation'
 import { useUserContext } from '@/context/AuthContext'
+import { createUserAccount } from '@/lib/appwrite/api'
 
 const SignupForm = () => {
-  // const {toast} = useToast()
+  const { toast } = useToast()
   const navigate = useNavigate()
   const { checkAuthUser, isLoading: isUserLoading } = useUserContext()
 
@@ -42,10 +43,12 @@ const SignupForm = () => {
   // Handler
   const handleSignup = async (user: z.infer<typeof SignupValidation>) => {
     try {
-      // const newUser = await createUserAccount(user)
+      // const newUser = await useCreateUserAccount(user)
+      const newUser = await createUserAccount(user)
+      console.log('newuser: ', newUser)
 
-      // if(!newUser){
-      //   toast({title: 'Sign up failed. Please try again.'})
+      // if (!newUser) {
+      //   toast({ title: 'Sign up failed. Please try again.' })
       //   return
       // }
 
@@ -54,23 +57,23 @@ const SignupForm = () => {
       //   password: user.password,
       // })
 
-      // if(!session){
-      //   toast({title: 'Something went wrong. Please login your new account'})
+      // if (!session) {
+      //   toast({ title: 'Something went wrong. Please login your new account' })
       //   navigate('/sign-in')
       //   return
       // }
 
-      const isLoggedIn = await checkAuthUser()
+      // const isLoggedIn = await checkAuthUser()
 
-      if (isLoggedIn) {
-        form.reset()
+      // if (isLoggedIn) {
+      //   form.reset()
 
-        navigate('/')
-      } else {
-        // toast({title: 'Login failed. Please try again.'})
+      //   navigate('/')
+      // } else {
+      //   // toast({title: 'Login failed. Please try again.'})
 
-        return
-      }
+      //   return
+      // }
     } catch (error) {
       console.error(error)
     }
