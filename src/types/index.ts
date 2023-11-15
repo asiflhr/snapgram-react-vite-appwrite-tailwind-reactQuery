@@ -17,18 +17,18 @@ export type INewPost = {
   userId: string
   caption: string
   file: File[]
-  location: string
+  location?: string
   tags?: string
 }
 
 export type IUpdatePost = {
   postId: string
   caption: string
-  location: string
-  tags?: string
-  file: File[]
   imageId: string
   imageUrl: URL
+  file: File[]
+  location?: string
+  tags?: string
 }
 
 export type IUser = {
@@ -36,13 +36,13 @@ export type IUser = {
   name: string
   username: string
   email: string
-  bio: string
   imageUrl: string
+  bio: string
 }
 
 export type INewUser = {
   name: string
-  username: string
   email: string
+  username: string
   password: string
 }
