@@ -37,7 +37,10 @@ const SigninForm = () => {
   })
 
   const handleSignin = async (user: z.infer<typeof SigninValidation>) => {
-    const session = await signInAccount(user)
+    const session = await signInAccount({
+      email: user.email,
+      password: user.password,
+    })
 
     if (!session) {
       toast({ title: 'Login failed. Please try again.' })
@@ -52,7 +55,7 @@ const SigninForm = () => {
 
       navigate('/')
     } else {
-      toast({ title: 'Login failed. Please try again.' })
+      toast({ title: 'Login failed. Please try again.---------' })
 
       return
     }
