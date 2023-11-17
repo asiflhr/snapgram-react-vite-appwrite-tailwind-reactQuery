@@ -1,10 +1,11 @@
-import { INITIAL_USER, useUserContext } from '@/context/AuthContext'
-import { Loader } from '@/components/shared'
-import { useSignOutAccount } from '@/lib/react-query/queries'
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
-import { sidebarLinks } from '@/constants'
+
 import { INavLink } from '@/types'
+import { sidebarLinks } from '@/constants'
+import { Loader } from '@/components/shared'
 import { Button } from '@/components/ui/button'
+import { useSignOutAccount } from '@/lib/react-query/queries'
+import { useUserContext, INITIAL_USER } from '@/context/AuthContext'
 
 const LeftSidebar = () => {
   const navigate = useNavigate()
@@ -13,7 +14,7 @@ const LeftSidebar = () => {
 
   const { mutate: signOut } = useSignOutAccount()
 
-  const handleSignOut = (
+  const handleSignOut = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault()
