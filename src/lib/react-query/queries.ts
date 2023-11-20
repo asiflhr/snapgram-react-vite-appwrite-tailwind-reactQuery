@@ -11,19 +11,19 @@ import {
   signInAccount,
   //   getCurrentUser,
   signOutAccount,
-  //   getUsers,
-  //   createPost,
-  //   getPostById,
-  //   updatePost,
-  //   getUserPosts,
-  //   deletePost,
-  //   likePost,
-  //   getUserById,
-  //   updateUser,
-  //   getRecentPosts,
-  //   getInfinitePosts,
-  //   searchPosts,
-  //   savePost,
+  // getUsers,
+  createPost,
+  // getPostById,
+  // updatePost,
+  // getUserPosts,
+  // deletePost,
+  // likePost,
+  // getUserById,
+  // updateUser,
+  // getRecentPosts,
+  // getInfinitePosts,
+  // searchPosts,
+  // savePost,
   //   deleteSavedPost,
 } from '@/lib/appwrite/api'
 import { INewPost, INewUser, IUpdatePost, IUpdateUser } from '@/types'
@@ -50,3 +50,7 @@ export const useSignOutAccount = () => {
     mutationFn: signOutAccount,
   })
 }
+
+// ============================================================
+// POST QUERIES
+// ============================================================
