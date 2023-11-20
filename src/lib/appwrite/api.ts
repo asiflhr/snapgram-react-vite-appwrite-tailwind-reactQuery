@@ -426,3 +426,20 @@ export async function getUserPosts(userId?: string) {
     console.log(error)
   }
 }
+
+// ============================== GET POPULAR POSTS (BY HIGHEST LIKE COUNT)
+export async function getRecentPosts() {
+  try {
+    const post = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.postCollectionId,
+      [Query.orderDesc('$createdAt'), Query.limit(20)]
+    )
+
+    if (!post) throw Error
+
+    return post
+  } catch (error) {
+    console.log(error)
+  }
+}
