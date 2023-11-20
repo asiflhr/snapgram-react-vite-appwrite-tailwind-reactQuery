@@ -330,3 +330,99 @@ export async function updatePost(post: IUpdatePost) {
 }
 
 // ============================== DELETE POST
+export async function deletePost(postId?: string, imageId?: string) {
+  if (!postId || !imageId) return
+
+  try {
+    const statusCode = await databases.deleteDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.postCollectionId,
+      postId
+    )
+
+    if (!statusCode) throw Error
+
+    await deleteFile(imageId)
+
+    return { status: 'ok' }
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+// ============================== LIKE / UNLIKE POST
+export async function likePost(postId: string, likesArray: string[]) {
+  try {
+    const updatePost = await databases.updateDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.postCollectionId,
+      postId,
+      {
+        likes: likesArray,
+      }
+    )
+
+    if (!updatePost) throw Error
+
+    return updatePost
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+// ============================== SAVE POST
+export async function savePost(postId: string, userId: string) {
+  try {
+    const updatePost = await databases.createDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.savesCollectionId,
+      ID.unique(),
+      {
+        user: userId,
+        post: postId,
+      }
+    )
+
+    if (!updatePost) throw Error
+
+    return updatePost
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+// ============================== DELETE SAVED POST
+export async function deleteSavePost(savedRecordId: string) {
+  try {
+    const statusCode = await databases.deleteDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.savesCollectionId,
+      savedRecordId
+    )
+
+    if (!statusCode) throw Error
+
+    return { status: 'Ok' }
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+// ============================== GET USER'S POST
+export async function getUserPosts(userId?: string) {
+  if (!userId) return
+
+  try {
+    const post = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.postCollectionId,
+      [Query.equal('creator', userId), Query.orderDesc('$createdAt')]
+    )
+
+    if (!post) throw Error
+
+    return post
+  } catch (error) {
+    console.log(error)
+  }
+}
