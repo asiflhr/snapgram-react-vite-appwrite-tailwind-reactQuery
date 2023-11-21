@@ -22,6 +22,7 @@ import {
 } from '@/lib/react-query/queries'
 import { SignupValidation } from '@/lib/validation'
 import { useUserContext } from '@/context/AuthContext'
+import { INewUser } from '@/types'
 
 const SignupForm = () => {
   const { toast } = useToast()
@@ -45,7 +46,7 @@ const SignupForm = () => {
     useSignInAccount()
 
   // Handler
-  const handleSignup = async (user: z.infer<typeof SignupValidation>) => {
+  const handleSignup = async (user: INewUser) => {
     try {
       const newUser = await createUserAccount(user)
 
