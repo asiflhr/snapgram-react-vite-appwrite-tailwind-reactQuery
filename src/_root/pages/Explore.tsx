@@ -5,11 +5,10 @@ import { Input } from '@/components/ui'
 import useDebounce from '@/hooks/useDebounce'
 import { GridPostList, Loader } from '@/components/shared'
 import { useGetPosts, useSearchPosts } from '@/lib/react-query/queries'
-import { Models } from 'appwrite'
 
 export type SearchResultProps = {
   isSearchFetching: boolean
-  searchedPosts: Models.DocumentList<Models.Document>
+  searchedPosts: any
 }
 
 const SearchResults = ({
