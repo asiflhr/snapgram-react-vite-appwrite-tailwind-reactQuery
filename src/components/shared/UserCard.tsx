@@ -1,6 +1,10 @@
-import React from 'react'
+import { Models } from 'appwrite'
 
-const UserCard = () => {
+type UserCardProps = {
+  user: Models.Document
+}
+
+const UserCard = ({ user }: UserCardProps) => {
   return <div>UserCard</div>
 }
 
