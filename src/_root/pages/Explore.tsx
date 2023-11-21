@@ -5,10 +5,11 @@ import { Input } from '@/components/ui'
 import useDebounce from '@/hooks/useDebounce'
 import { GridPostList, Loader } from '@/components/shared'
 import { useGetPosts, useSearchPosts } from '@/lib/react-query/queries'
+import { Models } from 'appwrite'
 
 export type SearchResultProps = {
   isSearchFetching: boolean
-  searchedPosts: any
+  searchedPosts: Models.DocumentList<Models.Document>
 }
 
 const SearchResults = ({
@@ -17,8 +18,8 @@ const SearchResults = ({
 }: SearchResultProps) => {
   if (isSearchFetching) {
     return <Loader />
-  } else if (searchedPosts && searchedPosts.documents.length > 0) {
-    return <GridPostList posts={searchedPosts.documents} />
+  } else if (searchedPosts?.documents.length > 0) {
+    return <GridPostList posts={searchedPosts?.documents} />
   } else {
     return (
       <p className='text-light-4 mt-10 text-center w-full'>No results found</p>
