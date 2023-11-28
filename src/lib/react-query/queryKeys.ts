@@ -4,6 +4,9 @@ export enum QUERY_KEYS {
 
   // USER KEYS
   GET_CURRENT_USER = 'getCurrentUser',
+  FOLLOW_USER = 'getFollowUser',
+  UNFOLLOW_USER = 'getUnfollowUser',
+  GET_FOLLOW_UNFOLLOW_USER = 'getFollowUnfollowUser',
   GET_USERS = 'getUsers',
   GET_USER_BY_ID = 'getUserById',
 

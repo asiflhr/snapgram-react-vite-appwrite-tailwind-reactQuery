@@ -1,5 +1,10 @@
 import { Models } from 'appwrite'
 import { Link } from 'react-router-dom'
+import {
+  useFollowUser,
+  useUnfollowUser,
+  useGetFollowAndUnfollowUsers,
+} from '@/lib/react-query/queries'
 
 import { Button } from '../ui/button'
 
@@ -8,6 +13,14 @@ type UserCardProps = {
 }
 
 const UserCard = ({ user }: UserCardProps) => {
+  // const {
+  //   data: followersData,
+  //   isLoading,
+  //   isError: isErrorCreators,
+  // } = useGetFollowAndUnfollowUsers()
+
+  // console.log('followersData: ', followersData)
+
   return (
     <Link to={`/profile/${user.$id}`} className='user-card'>
       <img

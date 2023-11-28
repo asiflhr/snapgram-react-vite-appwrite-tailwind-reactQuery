@@ -4,6 +4,15 @@ export type INavLink = {
   label: string
 }
 
+export type IUser = {
+  id: string
+  name: string
+  username: string
+  email: string
+  imageUrl: string
+  bio: string
+}
+
 export type IUpdateUser = {
   userId: string
   name: string
@@ -29,15 +38,6 @@ export type IUpdatePost = {
   file: File[]
   location?: string
   tags?: string
-}
-
-export type IUser = {
-  id: string
-  name: string
-  username: string
-  email: string
-  imageUrl: string
-  bio: string
 }
 
 export type INewUser = {

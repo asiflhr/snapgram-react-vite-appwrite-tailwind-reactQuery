@@ -1,11 +1,17 @@
 import { useToast } from '@/components/ui/use-toast'
 import { Loader, UserCard } from '@/components/shared'
-import { useGetUsers } from '@/lib/react-query/queries'
+import {
+  useGetUsers,
+  useFollowUser,
+  useUnfollowUser,
+} from '@/lib/react-query/queries'
 
 const AllUsers = () => {
   const { toast } = useToast()
 
   const { data: creators, isLoading, isError: isErrorCreators } = useGetUsers()
+
+  console.log('all users: ', creators?.documents)
 
   if (isErrorCreators) {
     toast({ title: 'Something went wrong.' })

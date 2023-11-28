@@ -1,4 +1,4 @@
-import { ID, Query } from 'appwrite'
+import { ID, Models, Query } from 'appwrite'
 
 import { appwriteConfig, account, databases, storage, avatars } from './config'
 import { IUpdatePost, INewPost, INewUser, IUpdateUser } from '@/types'
@@ -111,6 +111,81 @@ export async function signOutAccount() {
   } catch (error) {
     console.log(error)
   }
+}
+
+// ============================== SAVE POST
+export async function followUser(userId: string, followingId: string) {
+  // write implementation?
+  try {
+    const newFollower = await databases.createDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.followersCollectionId,
+      ID.unique(),
+      {
+        follower: userId,
+        following: followingId,
+      }
+    )
+
+    if (!newFollower) throw Error
+
+    return newFollower
+  } catch (error) {
+    console.log(error)
+  }
+}
+// ============================== DELETE SAVED POST
+export async function unFollowUser(savedRecordId: string) {
+  // write implementation to unfollow user?
+  try {
+    const deletedFollower = await databases.deleteDocument(
+      appwriteConfig.databaseId,
+      appwriteConfig.followersCollectionId,
+      savedRecordId
+    )
+
+    if (!deletedFollower) throw Error
+
+    return deletedFollower
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+// ============================== GET USER'S POST
+export async function getUsersFollowersAndFollowing(userId?: string) {
+  if (!userId) return
+
+  const data: {
+    followers: Models.DocumentList<Models.Document>[]
+    following: Models.DocumentList<Models.Document>[]
+  } = { followers: [], following: [] }
+
+  try {
+    const promises = [
+      databases.listDocuments(
+        appwriteConfig.databaseId,
+        appwriteConfig.followersCollectionId,
+        [Query.equal('follower', userId), Query.orderDesc('$createdAt')]
+      ),
+      databases.listDocuments(
+        appwriteConfig.databaseId,
+        appwriteConfig.followingCollectionId,
+        [Query.equal('following', userId), Query.orderDesc('$createdAt')]
+      ),
+    ]
+
+    const results = await Promise.all(promises)
+
+    if (!results) throw Error
+
+    data.followers.push(results[0])
+    data.following.push(results[1])
+  } catch (error) {
+    console.log(error)
+  }
+
+  return data
 }
 
 // ============================================================

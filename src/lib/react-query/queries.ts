@@ -25,6 +25,9 @@ import {
   searchPosts,
   savePost,
   deleteSavedPost,
+  followUser,
+  unFollowUser,
+  getUsersFollowersAndFollowing,
 } from '@/lib/appwrite/api'
 import { INewPost, INewUser, IUpdatePost, IUpdateUser } from '@/types'
 
@@ -240,5 +243,54 @@ export const useUpdateUser = () => {
         queryKey: [QUERY_KEYS.GET_USER_BY_ID, data?.$id],
       })
     },
+  })
+}
+
+export const useFollowUser = () => {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: ({
+      userId,
+      followingId,
+    }: {
+      userId: string
+      followingId: string
+    }) => followUser(userId, followingId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.FOLLOW_USER],
+      })
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.UNFOLLOW_USER],
+      })
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.GET_FOLLOW_UNFOLLOW_USER],
+      })
+    },
+  })
+}
+
+export const useUnfollowUser = () => {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (savedRecordId: string) => unFollowUser(savedRecordId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.FOLLOW_USER],
+      })
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.UNFOLLOW_USER],
+      })
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEYS.GET_FOLLOW_UNFOLLOW_USER],
+      })
+    },
+  })
+}
+
+export const useGetFollowAndUnfollowUsers = (userId: string) => {
+  return useQuery({
+    queryKey: [QUERY_KEYS.GET_FOLLOW_UNFOLLOW_USER],
+    queryFn: () => getUsersFollowersAndFollowing(userId),
   })
 }
