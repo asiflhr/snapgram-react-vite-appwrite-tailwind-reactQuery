@@ -10,7 +10,10 @@ import {
 import { Button } from '@/components/ui'
 import { LikedPosts } from '@/_root/pages'
 import { useUserContext } from '@/context/AuthContext'
-import { useGetUserById } from '@/lib/react-query/queries'
+import {
+  useGetUserById,
+  useGetFollowAndUnfollowUsers,
+} from '@/lib/react-query/queries'
 import { GridPostList, Loader } from '@/components/shared'
 
 interface StabBlockProps {
@@ -31,6 +34,7 @@ const Profile = () => {
   const { pathname } = useLocation()
 
   const { data: currentUser } = useGetUserById(id || '')
+  const { data: followersData } = useGetFollowAndUnfollowUsers(user.id)
 
   if (!currentUser)
     return (
@@ -61,9 +65,15 @@ const Profile = () => {
             </div>
 
             <div className='flex gap-8 mt-10 items-center justify-center xl:justify-start flex-wrap z-20'>
-              <StatBlock value={currentUser.posts.length} label='Posts' />
-              <StatBlock value={20} label='Followers' />
-              <StatBlock value={20} label='Following' />
+              <StatBlock value={currentUser.posts.length || 0} label='Posts' />
+              <StatBlock
+                value={followersData?.followers.length || 0}
+                label='Followers'
+              />
+              <StatBlock
+                value={followersData?.following.length || 0}
+                label='Following'
+              />
             </div>
 
             <p className='small-medium md:base-medium text-center xl:text-left mt-7 max-w-screen-sm'>

@@ -170,7 +170,7 @@ export async function getUsersFollowersAndFollowing(userId?: string) {
       ),
       databases.listDocuments(
         appwriteConfig.databaseId,
-        appwriteConfig.followingCollectionId,
+        appwriteConfig.followersCollectionId,
         [Query.equal('following', userId), Query.orderDesc('$createdAt')]
       ),
     ]

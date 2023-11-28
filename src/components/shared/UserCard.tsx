@@ -13,13 +13,13 @@ type UserCardProps = {
 }
 
 const UserCard = ({ user }: UserCardProps) => {
-  // const {
-  //   data: followersData,
-  //   isLoading,
-  //   isError: isErrorCreators,
-  // } = useGetFollowAndUnfollowUsers()
+  const { data: followersData, isPending } = useGetFollowAndUnfollowUsers(
+    user.$id
+  )
 
-  // console.log('followersData: ', followersData)
+  // todo: run a follow user api first...first-letter, and check whether user saved in db or not?
+
+  console.log('followersData: ', followersData)
 
   return (
     <Link to={`/profile/${user.$id}`} className='user-card'>
