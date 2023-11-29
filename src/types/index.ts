@@ -11,6 +11,8 @@ export type IUser = {
   email: string
   imageUrl: string
   bio: string
+  followers: IUser[]
+  following: IUser[]
 }
 
 export type IUpdateUser = {
