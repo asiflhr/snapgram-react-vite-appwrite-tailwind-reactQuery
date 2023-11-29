@@ -2,8 +2,8 @@ import { useToast } from '@/components/ui/use-toast'
 import { Loader, UserCard } from '@/components/shared'
 import {
   useGetUsers,
-  useFollowUser,
-  useUnfollowUser,
+  // useFollowUser,
+  // useUnfollowUser,
 } from '@/lib/react-query/queries'
 
 const AllUsers = () => {

@@ -1,8 +1,8 @@
 import { Models } from 'appwrite'
 import { Link } from 'react-router-dom'
 import {
-  useFollowUser,
-  useUnfollowUser,
+  // useFollowUser,
+  // useUnfollowUser,
   useGetFollowAndUnfollowUsers,
 } from '@/lib/react-query/queries'
 
@@ -13,9 +13,7 @@ type UserCardProps = {
 }
 
 const UserCard = ({ user }: UserCardProps) => {
-  const { data: followersData, isPending } = useGetFollowAndUnfollowUsers(
-    user.$id
-  )
+  const { data: followersData } = useGetFollowAndUnfollowUsers(user.$id)
 
   // todo: run a follow user api first...first-letter, and check whether user saved in db or not?
 
