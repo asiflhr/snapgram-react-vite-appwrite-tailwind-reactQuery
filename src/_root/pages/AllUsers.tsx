@@ -11,7 +11,7 @@ const AllUsers = () => {
 
   const { data: creators, isLoading, isError: isErrorCreators } = useGetUsers()
 
-  console.log('all users: ', creators?.documents)
+  // console.log('all users: ', creators?.documents)
 
   if (isErrorCreators) {
     toast({ title: 'Something went wrong.' })

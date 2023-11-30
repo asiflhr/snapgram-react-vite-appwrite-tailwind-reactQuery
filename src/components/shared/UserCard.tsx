@@ -25,7 +25,7 @@ const UserCard = ({ userObject }: UserCardProps) => {
   // todo: run a follow user api first...first-letter, and check whether user saved in db or not?
   // ! follow user created, now test function
 
-  const followedUserRecord = currentUser?.following.find(
+  const followedUserRecord = currentUser?.following?.find(
     (record: IUser) => record.id === userObject.$id
   )
 
@@ -33,8 +33,8 @@ const UserCard = ({ userObject }: UserCardProps) => {
     setIsFollowed(!!followedUserRecord)
   }, [currentUser])
 
-  console.log('current User: ', currentUser)
-  console.log('followersData: ', followersData)
+  // console.log('current User: ', currentUser)
+  // console.log('followersData: ', followersData)
 
   const handleFollowUser = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -52,7 +52,7 @@ const UserCard = ({ userObject }: UserCardProps) => {
   }
 
   return (
-    <Link to={`/profile/${userObject.$id}`} className='user-card'>
+    <div className='user-card'>
       <img
         src={userObject.imageUrl || '/assets/icons/profile-placeholder.svg'}
         alt='creator'
@@ -76,7 +76,7 @@ const UserCard = ({ userObject }: UserCardProps) => {
       >
         {isFollowed ? 'Following' : 'Follow'}
       </Button>
-    </Link>
+    </div>
   )
 }
 

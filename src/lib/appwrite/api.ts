@@ -113,7 +113,7 @@ export async function signOutAccount() {
   }
 }
 
-// ============================== SAVE POST
+// ============================== Follow User
 export async function followUser(userId: string, followingId: string) {
   // write implementation?
   try {
@@ -127,6 +127,8 @@ export async function followUser(userId: string, followingId: string) {
       }
     )
 
+    console.log('newFollower: ', newFollower)
+
     if (!newFollower) throw Error
 
     return newFollower
@@ -134,7 +136,7 @@ export async function followUser(userId: string, followingId: string) {
     console.log(error)
   }
 }
-// ============================== DELETE SAVED POST
+// ============================== Unfollow user
 export async function unFollowUser(savedRecordId: string) {
   // write implementation to unfollow user?
   try {
@@ -152,7 +154,7 @@ export async function unFollowUser(savedRecordId: string) {
   }
 }
 
-// ============================== GET USER'S POST
+// ============================== GET USER'S Followers & Following
 export async function getUsersFollowersAndFollowing(userId?: string) {
   if (!userId) return
 
