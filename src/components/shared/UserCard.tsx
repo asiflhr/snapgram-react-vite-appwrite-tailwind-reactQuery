@@ -1,11 +1,11 @@
 import { Models } from 'appwrite'
 // import { Link } from 'react-router-dom'
 import { useUserContext } from '@/context/AuthContext'
-import {
-  useFollowUser,
-  // useUnfollowUser,
-  // useGetFollowAndUnfollowUsers,
-} from '@/lib/react-query/queries'
+// import {
+//   useFollowUser,
+//   useUnfollowUser,
+//   useGetFollowAndUnfollowUsers,
+// } from '@/lib/react-query/queries'
 
 import { Button } from '../ui/button'
 import { useEffect, useState } from 'react'
@@ -19,7 +19,7 @@ const UserCard = ({ userObject }: UserCardProps) => {
   const [isFollowed, setIsFollowed] = useState(false)
   const { user: currentUser } = useUserContext()
   // const { data: followersData } = useGetFollowAndUnfollowUsers(userObject.$id)
-  const { mutate: followUser } = useFollowUser()
+  // const { mutate: followUser } = useFollowUser()
   // const { mutate: unFollowUser } = useUnfollowUser()
 
   // todo: run a follow user api first...first-letter, and check whether user saved in db or not?
