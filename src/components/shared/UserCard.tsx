@@ -1,10 +1,10 @@
 import { Models } from 'appwrite'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 import { useUserContext } from '@/context/AuthContext'
 import {
   useFollowUser,
   // useUnfollowUser,
-  useGetFollowAndUnfollowUsers,
+  // useGetFollowAndUnfollowUsers,
 } from '@/lib/react-query/queries'
 
 import { Button } from '../ui/button'
@@ -18,7 +18,7 @@ type UserCardProps = {
 const UserCard = ({ userObject }: UserCardProps) => {
   const [isFollowed, setIsFollowed] = useState(false)
   const { user: currentUser } = useUserContext()
-  const { data: followersData } = useGetFollowAndUnfollowUsers(userObject.$id)
+  // const { data: followersData } = useGetFollowAndUnfollowUsers(userObject.$id)
   const { mutate: followUser } = useFollowUser()
   // const { mutate: unFollowUser } = useUnfollowUser()
 
@@ -36,20 +36,20 @@ const UserCard = ({ userObject }: UserCardProps) => {
   // console.log('current User: ', currentUser)
   // console.log('followersData: ', followersData)
 
-  const handleFollowUser = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    e.stopPropagation()
+  // const handleFollowUser = (
+  //   e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  // ) => {
+  //   e.stopPropagation()
 
-    if (followedUserRecord) {
-      setIsFollowed(false)
-      // return unFollowUser(followedUserRecord.$id)
-      return
-    }
+  //   if (followedUserRecord) {
+  //     setIsFollowed(false)
+  //     // return unFollowUser(followedUserRecord.$id)
+  //     return
+  //   }
 
-    followUser({ userId: currentUser.id, followingId: userObject.$id })
-    setIsFollowed(true)
-  }
+  //   followUser({ userId: currentUser.id, followingId: userObject.$id })
+  //   setIsFollowed(true)
+  // }
 
   return (
     <div className='user-card'>
@@ -69,7 +69,7 @@ const UserCard = ({ userObject }: UserCardProps) => {
       </div>
 
       <Button
-        onClick={(e) => handleFollowUser(e)}
+        // onClick={(e) => handleFollowUser(e)}
         type='button'
         size='sm'
         className='shad-button_primary px-5'
